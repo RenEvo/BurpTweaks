@@ -1,7 +1,9 @@
 package com.renevo.burptweaks;
 
 import java.io.File;
+import java.util.*;
 
+import net.minecraft.block.Block;
 import net.minecraftforge.common.config.*;
 
 public class Config {
@@ -9,6 +11,9 @@ public class Config {
 	private Configuration configuration = null;
 	
 	private Property disableEndermanGriefing;
+	private Property debugDump;
+	
+	public Map<String, Property> mobSpawnRules;
 	
 	public static Config load(File configFile) {
 		Config result = new Config();
@@ -16,9 +21,19 @@ public class Config {
 		result.configuration = new Configuration(configFile);
 		result.configuration.load();
 		
-		result.disableEndermanGriefing = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_TWEAKS, "Disable Enderman Griefing", true);
+		// general
+		result.debugDump = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_GENERAL, "Debug Dump", false);
+		result.debugDump.comment = "If set to true, will output all block, item, and mob names to the log - useful for the dynamic settings below";
+		
+		// tweaks
+		result.disableEndermanGriefing = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_TWEAKS, "Disable Enderman Griefing", false);
 		result.disableEndermanGriefing.comment = "Disables Enderman from picking up any blocks.";
 
+		// mob spawn rules
+		ConfigCategory spawnRules = result.configuration.getCategory(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_SPAWNRULES);
+		result.configuration.addCustomCategoryComment(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_SPAWNRULES, "Add custom mob spawning restrictions\r\nExample:\r\nS:Slime <\r\n    minecraft:stone\r\n    minecraft:grass\r\n    minecraft:dirt\r\n    minecraft:gravel\r\n    minecraft:hardened_clay\r\n    minecraft:stained_hardened_clay\r\n    minecraft:sand\r\n    minecraft:lit_pumpkin\r\n    minecraft:pumpkin\r\n    minecraft:pumpkin_stem\r\n    minecraft:sandstone\r\n    >\r\n\r\nLeave empty to prevent all spawning:\r\nS:Bat <\r\n    >\r\n\r\nAnd finally, delete the setting to use normal behaviour\r\n\r\nNOTE: This will not ADD additionally spawning, this will only prevent spawning when a mob tries to spawn.\r\nNOTE: This does not effect forced mob spawning (spawner, cursed earth, eggs, etc...)");
+		result.mobSpawnRules = spawnRules.getValues();
+		
 		if (result.configuration.hasChanged()) {
 			result.configuration.save();
 		}
@@ -27,6 +42,14 @@ public class Config {
 	}
 	
 	public boolean getDisableEndermanGriefing() {
-		return disableEndermanGriefing.getBoolean(true);
+		return disableEndermanGriefing.getBoolean(false);
+	}
+	
+	public boolean getEnableMobSpawnRules() { 
+		return mobSpawnRules.size() > 0;
+	}
+	
+	public boolean getDebugDump() {
+		return debugDump.getBoolean(false);
 	}
 }
