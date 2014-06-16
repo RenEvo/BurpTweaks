@@ -1,0 +1,16 @@
+[
+{
+  "modid": "burptweaks",
+  "name": "BurpTweaks",
+  "description": "Tweaks used by the Burpcraft Server.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/RenEvo/BurpTweaks",
+  "updateUrl": "",
+  "authorList": ["RenEvo"],
+  "credits": "Burpcraft guys!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
