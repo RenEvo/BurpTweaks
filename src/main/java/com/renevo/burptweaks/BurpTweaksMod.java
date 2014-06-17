@@ -1,6 +1,6 @@
 package com.renevo.burptweaks;
 
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Logger;
 
 import com.renevo.burptweaks.lib.*;
 
@@ -8,7 +8,7 @@ import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.event.*;
 
-@Mod(modid = Constants.MOD_ID, version = Constants.MOD_VERSION)
+@Mod(modid = Constants.MOD_ID, version = Constants.MOD_VERSION, name = Constants.MOD_NAME)
 public class BurpTweaksMod
 {
    
@@ -20,7 +20,7 @@ public class BurpTweaksMod
     
     public static Config config = null;
     
-    public static org.apache.logging.log4j.Logger log = null;
+    public static Logger log = null;
     
     @EventHandler
     public void preInitialization(FMLPreInitializationEvent event) {

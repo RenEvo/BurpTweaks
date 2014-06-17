@@ -6,11 +6,12 @@
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/RenEvo/BurpTweaks",
-  "updateUrl": "",
   "authorList": ["RenEvo"],
-  "credits": "Burpcraft guys!",
+  "credits": "Buildcraft, Pahimar, cpw, and all open source mods",
   "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+  "requiredMods": [],
+  "dependants": [],
+  "dependencies": [ "*" ],
+  "useDependencyInformation" : "true"
 }
 ]

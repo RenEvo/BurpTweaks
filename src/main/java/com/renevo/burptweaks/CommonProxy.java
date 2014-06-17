@@ -28,6 +28,10 @@ public class CommonProxy {
 		if (BurpTweaksMod.config.getEnableMobSpawnRules()) {
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.tweaks.EntitySpawnRestrictions());
 		}
+
+		if (BurpTweaksMod.config.getMobWandering()) { 
+			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.tweaks.EntityMovementHandler());
+		}
 		
 		if (BurpTweaksMod.config.getDebugDump()) {
 			Debug.DebugDump();
