@@ -1,4 +1,4 @@
-package com.renevo.burptweaks.entity.monster.tweaks;
+package com.renevo.burptweaks.entity.monster;
 
 import java.util.*;
 

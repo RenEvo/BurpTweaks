@@ -22,15 +22,19 @@ public class CommonProxy {
 	
 	public void postInitialization() {
 		if (BurpTweaksMod.config.getDisableEndermanGriefing()) {
-			com.renevo.burptweaks.entity.monster.tweaks.EntityEndermanTweaks.disableEndermanGriefing();
+			com.renevo.burptweaks.entity.monster.EntityEndermanTweaks.disableEndermanGriefing();
 		}
 				
 		if (BurpTweaksMod.config.getEnableMobSpawnRules()) {
-			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.tweaks.EntitySpawnRestrictions());
+			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntitySpawnRestrictions());
 		}
 
 		if (BurpTweaksMod.config.getMobWandering()) { 
-			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.tweaks.EntityMovementHandler());
+			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityMovementHandler());
+		}
+		
+		if (BurpTweaksMod.config.getShouldAnimalsEatFood()) {
+			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAnimalEatingHandler());
 		}
 		
 		if (BurpTweaksMod.config.getDebugDump()) {

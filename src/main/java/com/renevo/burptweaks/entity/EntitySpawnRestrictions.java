@@ -1,4 +1,4 @@
-package com.renevo.burptweaks.entity.tweaks;
+package com.renevo.burptweaks.entity;
 
 import java.util.Arrays;
 

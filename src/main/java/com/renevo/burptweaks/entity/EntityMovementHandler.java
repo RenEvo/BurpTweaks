@@ -1,4 +1,4 @@
-package com.renevo.burptweaks.entity.tweaks;
+package com.renevo.burptweaks.entity;
 
 import com.renevo.burptweaks.BurpTweaksMod;
 import com.renevo.burptweaks.entity.ai.EntityAIWanderTweaked;
