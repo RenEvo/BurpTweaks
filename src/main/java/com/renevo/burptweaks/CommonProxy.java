@@ -37,6 +37,10 @@ public class CommonProxy {
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAnimalEatingHandler());
 		}
 		
+		if (BurpTweaksMod.config.getBabyJumpNerfed()) { 
+			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAgeableJumpHandler());
+		}
+		
 		if (BurpTweaksMod.config.getDebugDump()) {
 			Debug.DebugDump();
 		}
