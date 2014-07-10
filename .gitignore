@@ -10,6 +10,12 @@ eclipse/
 # gradle
 .gradle/
 
+# idea
+BurpTweaks.iml
+BurpTweaks.ipr
+BurpTweaks.iws
+out/
+
 # forge stuff
 CREDITS-fml.txt
 LICENSE-fml.txt
