@@ -1,0 +1,5 @@
+item.PipeItemsInsertion.name=Insertion Pipe
+
+block.PipeItemsInsertion.name=Insertion Pipe
+
+tip.PipeItemsInsertion=Attempts to put items in an inventory.\nWill continue down pipes or bounce.

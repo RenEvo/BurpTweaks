@@ -17,6 +17,8 @@ public class ClientProxy extends CommonProxy  {
 	@Override
 	public void postInitialization() {
 		super.postInitialization();
+		
+		pipeProxy.registerRenderers();
 	}
 	
 }

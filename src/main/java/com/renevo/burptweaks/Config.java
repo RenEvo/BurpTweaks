@@ -15,6 +15,8 @@ public class Config {
 	private Property animalsEatNearbyFood;
 	private Property babiesDontJumpHigh;
 	
+	private Property pipeInsertion;
+	
 	private Property debugDump;
 	
 	public Map<String, Property> mobSpawnRules;
@@ -41,6 +43,10 @@ public class Config {
 				
 		result.babiesDontJumpHigh = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_TWEAKS, "Baby Jump Nerf", false);
 		result.babiesDontJumpHigh.comment = "Baby creatures are unable to jump a full block.\r\nNOTE: This will only effect babies that grow up (EntityAgeable).";
+		
+		// integration
+		result.pipeInsertion = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Insertion Pipe", false);
+		result.pipeInsertion.comment = "If true, and Buildcraft is present, will create an Insertion Pipe - always tries to insert to an inventory before moving on";
 		
 		// mob spawn rules
 		ConfigCategory spawnRules = result.configuration.getCategory(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_SPAWNRULES);
@@ -72,6 +78,10 @@ public class Config {
 	
 	public boolean getBabyJumpNerfed() { 
 		return babiesDontJumpHigh.getBoolean(false);
+	}
+	
+	public boolean enableInsertionPipe() { 
+		return pipeInsertion.getBoolean(false);
 	}
 	
 	public boolean getDebugDump() {
