@@ -22,7 +22,7 @@ group= "com.renevo.burptweaks" // http://maven.apache.org/guides/mini/guide-nami
 archivesBaseName = "burptweaks"
 
 minecraft {
-    version = "1.7.2-10.12.2.1121"
+    version = "1.7.2-10.12.2.1147"
     assetDir = "eclipse/assets"
 }
 
