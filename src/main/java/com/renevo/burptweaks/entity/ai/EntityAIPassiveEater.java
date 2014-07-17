@@ -22,7 +22,7 @@ public class EntityAIPassiveEater extends EntityAIBase {
 	
 	@Override
 	public boolean shouldExecute() {
-		return isValidEater();
+		return isValidEater() && hasFood();
 	}
 	
 	private boolean isValidEater() {
@@ -39,9 +39,29 @@ public class EntityAIPassiveEater extends EntityAIBase {
 	
     @Override
     public boolean continueExecuting() {
-        return isValidEater();
+        return isValidEater() && hasFood();
     }
 	
+    private boolean hasFood() {
+    	List nearbyItems = animal.worldObj.getEntitiesWithinAABBExcludingEntity(animal, animal.boundingBox.expand(2.0D, 1.0D, 2.0D));
+    	
+    	if (nearbyItems == null || nearbyItems.size() == 0) {
+    		return false;
+    	}
+    	
+    	for (Iterator i = nearbyItems.iterator(); i.hasNext();) {
+    		Entity entity = (Entity)i.next();
+    		
+    		if (entity instanceof EntityItem) {
+    			EntityItem eItem = (EntityItem)entity;
+    			if (animal.isBreedingItem(eItem.getEntityItem())) { 
+    				return true;
+    			}
+    		}
+    	}
+    	
+    	return false;
+    }
 	
     @Override
     public void startExecuting() {
@@ -68,8 +88,12 @@ public class EntityAIPassiveEater extends EntityAIBase {
     				continue;
     			}
     			
-    			ate = true;
+    			if (eItem.getEntityItem().stackSize <= 0) {
+    				continue;
+    			}
+    			
     			eItem.getEntityItem().stackSize--;
+    			ate = true;
     			
     			if (eItem.getEntityItem().stackSize <= 0) { 
     				eItem.setDead();
