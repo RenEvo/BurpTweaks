@@ -17,6 +17,8 @@ public class Blocks {
 	
 	public static void registerBlocks() {
 		if (BurpTweaksMod.config.getActivatorBlockEnabled()) {
+			BurpTweaksMod.log.info("Enabling Activator Block");
+
 			activator = new BlockActivator();
 			GameRegistry.registerBlock(activator, "activator");
 			

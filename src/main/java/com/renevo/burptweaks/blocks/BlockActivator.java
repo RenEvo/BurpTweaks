@@ -97,7 +97,6 @@ public class BlockActivator extends Block {
 			for (int slot = 0; slot < inventory.getSizeInventory(); slot++) {
 				if (inventory.getStackInSlot(slot) != null) {
 					player.setCurrentItemOrArmor(0, inventory.getStackInSlot(slot));
-					com.renevo.burptweaks.BurpTweaksMod.log.info("Found Item: " + player.getCurrentEquippedItem().getUnlocalizedName());
 					break;
 				}
 			}
