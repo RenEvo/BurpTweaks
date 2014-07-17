@@ -4,6 +4,7 @@ import com.renevo.burptweaks.BurpTweaksMod;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 
 public class Blocks {
 
@@ -18,6 +19,24 @@ public class Blocks {
 		if (BurpTweaksMod.config.getActivatorBlockEnabled()) {
 			activator = new BlockActivator();
 			GameRegistry.registerBlock(activator, "activator");
+			
+			GameRegistry.addRecipe(new ItemStack(activator), 
+					new Object[] { 
+						"#R#", "#P#", "#C#", 
+						'R', net.minecraft.init.Items.repeater,
+						'P', net.minecraft.init.Blocks.piston,
+						'C', net.minecraft.init.Items.comparator,
+						'#', net.minecraft.init.Blocks.cobblestone 
+					});
+			
+			GameRegistry.addRecipe(new ItemStack(activator), 
+					new Object[] { 
+						"#C#", "#P#", "#R#", 
+						'R', net.minecraft.init.Items.repeater,
+						'P', net.minecraft.init.Blocks.piston,
+						'C', net.minecraft.init.Items.comparator,
+						'#', net.minecraft.init.Blocks.cobblestone 
+					});
 		}
 	}
 }
