@@ -1,9 +1,11 @@
 package com.renevo.burptweaks;
 
 import java.util.Iterator;
+
 import com.renevo.burptweaks.lib.Debug;
 import com.renevo.burptweaks.pipes.PipeProxy;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
@@ -13,10 +15,14 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy {
 
-	protected PipeProxy pipeProxy = new PipeProxy();
+	protected PipeProxy pipeProxy;
 	
 	public void preInitialization() {
-
+		com.renevo.burptweaks.blocks.Blocks.registerBlocks();
+		
+		if (Loader.isModLoaded("BuildCraft|Transport")) {
+			pipeProxy = new PipeProxy();
+		}
 	}
 	
 	public void initialization() {
@@ -44,8 +50,10 @@ public class CommonProxy {
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAgeableJumpHandler());
 		}
 		
-		pipeProxy.createPipes();
-		
+		if (Loader.isModLoaded("BuildCraft|Transport")) {
+			pipeProxy.createPipes();
+		}
+
 		if (BurpTweaksMod.config.getDebugDump()) {
 			Debug.DebugDump();
 		}

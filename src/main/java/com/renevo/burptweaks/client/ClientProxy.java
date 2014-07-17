@@ -18,7 +18,9 @@ public class ClientProxy extends CommonProxy  {
 	public void postInitialization() {
 		super.postInitialization();
 		
-		pipeProxy.registerRenderers();
+		if (pipeProxy != null) { 
+			pipeProxy.registerRenderers();
+		}
 	}
 	
 }

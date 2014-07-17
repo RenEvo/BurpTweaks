@@ -15,6 +15,8 @@ public class Config {
 	private Property animalsEatNearbyFood;
 	private Property babiesDontJumpHigh;
 	
+	private Property activatorBlock;
+	
 	private Property pipeInsertion;
 	
 	private Property debugDump;
@@ -43,6 +45,10 @@ public class Config {
 				
 		result.babiesDontJumpHigh = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_TWEAKS, "Baby Jump Nerf", false);
 		result.babiesDontJumpHigh.comment = "Baby creatures are unable to jump a full block.\r\nNOTE: This will only effect babies that grow up (EntityAgeable).";
+		
+		// blocks
+		result.activatorBlock = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_RECIPES, "Activator Block", false);
+		result.activatorBlock.comment = "Enables the Activator Block - a block that when redstone signal is applied, will right click the block in front of it\r\nIf an inventory exists behind the block (opposite of front) then it will use items in that inventory when right clicking.";
 		
 		// integration
 		result.pipeInsertion = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Insertion Pipe", false);
@@ -78,6 +84,10 @@ public class Config {
 	
 	public boolean getBabyJumpNerfed() { 
 		return babiesDontJumpHigh.getBoolean(false);
+	}
+	
+	public boolean getActivatorBlockEnabled() { 
+		return activatorBlock.getBoolean(false);
 	}
 	
 	public boolean enableInsertionPipe() { 

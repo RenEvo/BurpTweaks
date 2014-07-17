@@ -1,5 +1,9 @@
 item.PipeItemsInsertion.name=Insertion Pipe
+item.activator.name=Activator
 
 block.PipeItemsInsertion.name=Insertion Pipe
+block.activator.name=Activator
+
+tile.activator.name=Activator
 
 tip.PipeItemsInsertion=Attempts to put items in an inventory.\nWill continue down pipes or bounce.
