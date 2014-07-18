@@ -92,10 +92,11 @@ public class BlockActivator extends Block {
 		EntityPlayer player = FakePlayerFactory.getMinecraft((WorldServer)world);
 		
 		// if there is an inventory behind us, use it....
-		if (rearBlock != null && rearBlock instanceof IInventory) {
+		if (player != null && rearBlock != null && rearBlock instanceof IInventory) {
 			IInventory inventory = (IInventory)rearBlock;
 			for (int slot = 0; slot < inventory.getSizeInventory(); slot++) {
-				if (inventory.getStackInSlot(slot) != null) {
+				if (inventory.getStackInSlot(slot) != null && inventory.getStackInSlot(slot).stackSize > 0) {
+					// unsure if this is "thread safe" - lets try it anyway right?
 					player.setCurrentItemOrArmor(0, inventory.getStackInSlot(slot));
 					break;
 				}
@@ -103,12 +104,21 @@ public class BlockActivator extends Block {
 		}
 		
 		// activate it (right click)
-        if (facingBlock != null && facingBlock.onBlockActivated(world, x + enumFacing.getFrontOffsetX(), y + enumFacing.getFrontOffsetY(), z + enumFacing.getFrontOffsetZ(), player, 0, 0, 0, 0)) {
-        	// if we did, play the sound, cause it's cool
-    		world.playAuxSFX(1001, x, y, z, 0);
+        if (facingBlock != null) {
+        	try {
+        		facingBlock.onBlockActivated(world, x + enumFacing.getFrontOffsetX(), y + enumFacing.getFrontOffsetY(), z + enumFacing.getFrontOffsetZ(), player, 0, 0, 0, 0);
+        	} catch (Exception e) {
+        		// if we are debug dump mode, write the error, otherwise, just "meh" it, mods do wierd things with inventories.
+        		if (com.renevo.burptweaks.BurpTweaksMod.config.enableDebug()) {
+        			com.renevo.burptweaks.BurpTweaksMod.log.error(e);
+        		}
+        	}
         }
         
-        player.setCurrentItemOrArmor(0, null);
+        // clean up what we did before
+        if (player != null) { 
+        	player.setCurrentItemOrArmor(0, null);
+        }
     }
     
     @Override

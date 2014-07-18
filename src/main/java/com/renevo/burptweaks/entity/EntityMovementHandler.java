@@ -60,7 +60,7 @@ public class EntityMovementHandler {
 			moveSpeed = 0.6F;
 		}
 		
-		if (BurpTweaksMod.config.getDebugDump()) {
+		if (BurpTweaksMod.config.enableDebug()) {
 			BurpTweaksMod.log.info("Changing AI Task for Entity: " + entity + " with movement speed " + moveSpeed);
 		}
 		

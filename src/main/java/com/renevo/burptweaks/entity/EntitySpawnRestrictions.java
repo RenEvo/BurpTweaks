@@ -30,7 +30,7 @@ public class EntitySpawnRestrictions {
 		Block spawnBlock = event.entity.worldObj.getBlock(x, y - 1, z);
 		
 		if (!canMobSpawnOnBlock(event.entity, spawnBlock)) {
-			if (BurpTweaksMod.config.getDebugDump()) {
+			if (BurpTweaksMod.config.enableDebug()) {
 				BurpTweaksMod.log.warn("Stopping Spawn of Entity: " + net.minecraft.entity.EntityList.getEntityString(event.entity));
 			}
 			

@@ -21,13 +21,9 @@ import net.minecraftforge.client.MinecraftForgeClient;
 public class PipeProxy {
 
 	public static Item pipeInsertion;
-	
-	public void createPipes() {
-		if (!Loader.isModLoaded("BuildCraft|Transport")) {
-			return;
-		}
 		
-		if (BurpTweaksMod.config.enableInsertionPipe() && pipeInsertion == null) {
+	public void postInitialization() {
+		if (BurpTweaksMod.config.enableInsertionPipe()) {
 			com.renevo.burptweaks.BurpTweaksMod.log.info("Creating Insertion Pipe");
 			
 			pipeInsertion = createPipe(PipeItemsInsertion.class);
@@ -40,15 +36,5 @@ public class PipeProxy {
 		pipe.setUnlocalizedName(pipeClass.getSimpleName());
 		
 		return pipe;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public void registerRenderers() {
-		if (!Loader.isModLoaded("BuildCraft|Transport")) {
-			return;
-		}
-		
-		// make pipe items... look like pipes
-		MinecraftForgeClient.registerItemRenderer(pipeInsertion, TransportProxyClient.pipeItemRenderer);
 	}
 }

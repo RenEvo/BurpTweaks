@@ -1,60 +1,63 @@
 package com.renevo.burptweaks;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-import com.renevo.burptweaks.lib.Debug;
-import com.renevo.burptweaks.pipes.PipeProxy;
+import com.renevo.burptweaks.integration.*;
+import com.renevo.burptweaks.lib.*;
 
 import cpw.mods.fml.common.Loader;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy {
 
-	protected PipeProxy pipeProxy;
+	private List<IModIntegration> modIntegrations = new ArrayList<IModIntegration>();
 	
 	public void preInitialization() {
 		com.renevo.burptweaks.blocks.Blocks.registerBlocks();
 		
 		if (Loader.isModLoaded("BuildCraft|Transport")) {
-			pipeProxy = new PipeProxy();
+			modIntegrations.add(new BuildcraftIntegration());
+		}
+		
+		for (Iterator<IModIntegration> i = modIntegrations.iterator(); i.hasNext();) {
+			i.next().preInitialization();
 		}
 	}
 	
 	public void initialization() {
-
+		for (Iterator<IModIntegration> i = modIntegrations.iterator(); i.hasNext();) {
+			i.next().initialization();
+		}
 	}
 	
 	public void postInitialization() {
-		if (BurpTweaksMod.config.getDisableEndermanGriefing()) {
+		if (BurpTweaksMod.config.disableEndermanGriefing()) {
 			com.renevo.burptweaks.entity.monster.EntityEndermanTweaks.disableEndermanGriefing();
 		}
 				
-		if (BurpTweaksMod.config.getEnableMobSpawnRules()) {
+		if (BurpTweaksMod.config.enableMobSpawnRules()) {
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntitySpawnRestrictions());
 		}
 
-		if (BurpTweaksMod.config.getMobWandering()) { 
+		if (BurpTweaksMod.config.enableMobWandering()) { 
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityMovementHandler());
 		}
 		
-		if (BurpTweaksMod.config.getShouldAnimalsEatFood()) {
+		if (BurpTweaksMod.config.enableShouldAnimalsEatFood()) {
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAnimalEatingHandler());
 		}
 		
-		if (BurpTweaksMod.config.getBabyJumpNerfed()) { 
+		if (BurpTweaksMod.config.enableBabyJumpNerf()) { 
 			MinecraftForge.EVENT_BUS.register(new com.renevo.burptweaks.entity.EntityAgeableJumpHandler());
 		}
 		
-		if (Loader.isModLoaded("BuildCraft|Transport")) {
-			pipeProxy.createPipes();
+		for (Iterator<IModIntegration> i = modIntegrations.iterator(); i.hasNext();) {
+			i.next().postInitialization();
 		}
 
-		if (BurpTweaksMod.config.getDebugDump()) {
+		if (BurpTweaksMod.config.enableDebug()) {
 			Debug.DebugDump();
 		}
 

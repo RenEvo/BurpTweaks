@@ -11,7 +11,6 @@ import cpw.mods.fml.common.event.*;
 @Mod(modid = Constants.MOD_ID, version = Constants.MOD_VERSION, name = Constants.MOD_NAME)
 public class BurpTweaksMod
 {
-   
     @Instance(Constants.MOD_ID)
     public static BurpTweaksMod instance;
     

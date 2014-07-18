@@ -17,6 +17,7 @@ public class Config {
 	
 	private Property activatorBlock;
 	
+	private Property lavaCombustionFuel;
 	private Property pipeInsertion;
 	
 	private Property debugDump;
@@ -51,6 +52,9 @@ public class Config {
 		result.activatorBlock.comment = "Enables the Activator Block - a block that when redstone signal is applied, will right click the block in front of it\r\nIf an inventory exists behind the block (opposite of front) then it will use items in that inventory when right clicking.";
 		
 		// integration
+		result.lavaCombustionFuel = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Lava Combustion Engine Fuel", false);
+		result.lavaCombustionFuel.comment = "If true, and Buildcraft is present, will add Lava as a fuel for Combustion Engines";
+		
 		result.pipeInsertion = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Insertion Pipe", false);
 		result.pipeInsertion.comment = "If true, and Buildcraft is present, will create an Insertion Pipe - always tries to insert to an inventory before moving on";
 		
@@ -66,35 +70,39 @@ public class Config {
 		return result;
 	}
 	
-	public boolean getMobWandering() {
+	public boolean enableMobWandering() {
 		return changeMobWanderingAI.getBoolean(false);
 	}
 	
-	public boolean getDisableEndermanGriefing() {
+	public boolean disableEndermanGriefing() {
 		return disableEndermanGriefing.getBoolean(false);
 	}
 
-	public boolean getShouldAnimalsEatFood() {
+	public boolean enableShouldAnimalsEatFood() {
 		return animalsEatNearbyFood.getBoolean(false);
 	}
 	
-	public boolean getEnableMobSpawnRules() { 
+	public boolean enableMobSpawnRules() { 
 		return mobSpawnRules.size() > 0;
 	}
 	
-	public boolean getBabyJumpNerfed() { 
+	public boolean enableBabyJumpNerf() { 
 		return babiesDontJumpHigh.getBoolean(false);
 	}
 	
-	public boolean getActivatorBlockEnabled() { 
+	public boolean enableActivatorBlock() { 
 		return activatorBlock.getBoolean(false);
+	}
+	
+	public boolean enableLavaFuelCombustion() {
+		return lavaCombustionFuel.getBoolean(false);
 	}
 	
 	public boolean enableInsertionPipe() { 
 		return pipeInsertion.getBoolean(false);
 	}
 	
-	public boolean getDebugDump() {
+	public boolean enableDebug() {
 		return debugDump.getBoolean(false);
 	}
 }
