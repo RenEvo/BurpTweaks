@@ -21,6 +21,14 @@ public class CommonProxy {
 			modIntegrations.add(new BuildcraftIntegration());
 		}
 		
+		if (Loader.isModLoaded("Railcraft")) {
+			modIntegrations.add(new RailcraftIntegration());
+		}
+		
+		if (Loader.isModLoaded("exnihilo")) {
+			modIntegrations.add(new ExNihiloIntegration());
+		}
+		
 		for (Iterator<IModIntegration> i = modIntegrations.iterator(); i.hasNext();) {
 			i.next().preInitialization();
 		}

@@ -19,6 +19,8 @@ public class Config {
 	
 	private Property lavaCombustionFuel;
 	private Property pipeInsertion;
+	private Property enableRailcraftSieveRecipes;
+	private Property enableRockCrusherOreDustRecipes;
 	
 	private Property debugDump;
 	
@@ -57,6 +59,12 @@ public class Config {
 		
 		result.pipeInsertion = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Insertion Pipe", false);
 		result.pipeInsertion.comment = "If true, and Buildcraft is present, will create an Insertion Pipe - always tries to insert to an inventory before moving on";
+
+		result.enableRailcraftSieveRecipes = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Railcraft Sieve Recipes", false);
+		result.enableRailcraftSieveRecipes.comment = "If true, and Railcraft + Ex Nihilo is present, will create sieve rewards for sulfur and saltpeter";
+		
+		result.enableRockCrusherOreDustRecipes = result.configuration.get(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_INTEGRATION, "Ex Nihilo Gravels and Dusts in Rock Crusher", false);
+		result.enableRockCrusherOreDustRecipes.comment = "If true, and Railcraft + Ex Nihilo is present, will create rock crusher recipes for sand -> dust AND ore gravels -> ore sands -> ore dusts";
 		
 		// mob spawn rules
 		ConfigCategory spawnRules = result.configuration.getCategory(com.renevo.burptweaks.lib.Constants.CONFIG_CATEGORY_SPAWNRULES);
@@ -100,6 +108,14 @@ public class Config {
 	
 	public boolean enableInsertionPipe() { 
 		return pipeInsertion.getBoolean(false);
+	}
+	
+	public boolean enableRailcraftSieveRecipes() {
+		return enableRailcraftSieveRecipes.getBoolean(false);
+	}
+	
+	public boolean enableRockCrusherOreDustRecipes() {
+		return enableRockCrusherOreDustRecipes.getBoolean(false);
 	}
 	
 	public boolean enableDebug() {

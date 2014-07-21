@@ -4,18 +4,25 @@ import com.renevo.burptweaks.BurpTweaksMod;
 import com.renevo.burptweaks.CommonProxy;
 import com.renevo.burptweaks.pipes.PipeProxy;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BuildcraftIntegration implements IModIntegration {
 
-    @SidedProxy(clientSide = "com.renevo.burptweaks.client.pipes.PipeProxy", serverSide="com.renevo.burptweaks.pipes.PipeProxy")
-    public static PipeProxy pipeProxy;
+    private PipeProxy pipeProxy;
 	
 	@Override
 	public void preInitialization() {
-		
+		// create the correct pipeProxy for the current side
+		Side side = FMLCommonHandler.instance().getSide();
+
+		if (side == Side.CLIENT){
+			pipeProxy = new com.renevo.burptweaks.client.pipes.PipeProxy();
+		} else {
+			pipeProxy = new com.renevo.burptweaks.pipes.PipeProxy();
+		}
 	}
 
 	@Override
