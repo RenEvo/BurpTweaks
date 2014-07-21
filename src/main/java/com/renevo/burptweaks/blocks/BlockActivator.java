@@ -90,14 +90,17 @@ public class BlockActivator extends Block {
 		TileEntity rearBlock = world.getTileEntity(x + (enumFacing.getFrontOffsetX() * -1), y + (enumFacing.getFrontOffsetY() * -1), z + (enumFacing.getFrontOffsetZ() * -1));
 		
 		EntityPlayer player = FakePlayerFactory.getMinecraft((WorldServer)world);
+		int inventorySlot = -1;
+		IInventory inventory = null;
 		
 		// if there is an inventory behind us, use it....
 		if (player != null && rearBlock != null && rearBlock instanceof IInventory) {
-			IInventory inventory = (IInventory)rearBlock;
+			inventory = (IInventory)rearBlock;
 			for (int slot = 0; slot < inventory.getSizeInventory(); slot++) {
 				if (inventory.getStackInSlot(slot) != null && inventory.getStackInSlot(slot).stackSize > 0) {
 					// unsure if this is "thread safe" - lets try it anyway right?
 					player.setCurrentItemOrArmor(0, inventory.getStackInSlot(slot));
+					inventorySlot = slot;
 					break;
 				}
 			}
@@ -117,7 +120,13 @@ public class BlockActivator extends Block {
         
         // clean up what we did before
         if (player != null) { 
+        	// prevent ghost items...
+        	if (inventory != null && inventorySlot > -1 && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().stackSize <= 0) { 
+        		inventory.setInventorySlotContents(inventorySlot, null);
+        	}
+        	
         	player.setCurrentItemOrArmor(0, null);
+        	
         }
     }
     
