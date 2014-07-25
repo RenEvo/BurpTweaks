@@ -17,12 +17,12 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.2-1.3"
+version = "1.7.10-1.3"
 group= "com.renevo.burptweaks" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "burptweaks"
 
 minecraft {
-    version = "1.7.2-10.12.2.1147"
+    version = "1.7.10-10.13.0.1187"
     assetDir = "eclipse/assets"
 }
 
@@ -39,7 +39,7 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    compile 'com.mod-buildcraft:buildcraft:6.0.16:dev'
+    compile 'com.mod-buildcraft:buildcraft:6.0.17:dev'
 }
 
 processResources
